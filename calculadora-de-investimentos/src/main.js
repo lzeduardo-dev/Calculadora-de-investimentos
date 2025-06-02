@@ -7,7 +7,27 @@ const clearFormButton = document.getElementById("clearFormButton");
 const finalMoneyChart = document.getElementById("final-money-distribution");
 const progressionChart = document.getElementById("progression");
 
+let doughnutChartReference = {};
+let progressionChartReference = {};
+
+function isObjectEmpty(obj) {
+  return Object.keys(obj).length === 0;
+}
+
+function resetCharts() {
+  if (
+    !isObjectEmpty(doughnutChartReference) &&
+    !isObjectEmpty(progressionChartReference)
+  ) {
+    doughnutChartReference.destroy();
+    progressionChartReference.destroy();
+    doughnutChartReference = {};
+    progressionChartReference = {};
+  }
+}
+
 function renderProgression() {
+  resetCharts();
   try {
     const startingAmount = Number(
       document.getElementById("starting-amount").value
@@ -15,7 +35,7 @@ function renderProgression() {
     const additionalContribution = Number(
       document.getElementById("additional-contribution").value
     );
-    const timeAmount = Number(document.getElementById("time-amount").value); // corrigido o id aqui (antes estava "starting-amount" duplicado)
+    const timeAmount = Number(document.getElementById("time-amount").value);
     const timeAmountPeriod =
       document.getElementById("time-amount-period").value;
     const returnRatePeriod = document.getElementById("evaluation-period").value;
@@ -31,11 +51,10 @@ function renderProgression() {
       returnRatePeriod
     );
 
-    // retorna os dados do ultimo mês.
     const finalInvestmentObject = returnsArray[returnsArray.length - 1];
     console.log(finalInvestmentObject);
 
-    new Chart(finalMoneyChart, {
+    doughnutChartReference = new Chart(finalMoneyChart, {
       type: "doughnut",
       data: {
         labels: ["Total Investido", "Rendimento", "Impostos"],
@@ -57,19 +76,19 @@ function renderProgression() {
       options: {},
     });
 
-    new Chart(progressionChart, {
+    progressionChartReference = new Chart(progressionChart, {
       type: "bar",
       data: {
-        labels: returnsArray.map((investmentObject) => investmentObject.month),
+        labels: returnsArray.map((obj) => obj.month),
         datasets: [
           {
             label: "Total investido",
-            data:returnsArray.map((investmentObject) => investmentObject.investedAmount),
-            backgroundColor:"rgb(228, 116, 46)",
+            data: returnsArray.map((obj) => obj.investedAmount),
+            backgroundColor: "rgb(228, 116, 46)",
           },
           {
             label: "Rendimento",
-            data:returnsArray.map((investmentObject) => investmentObject.interestReturns),
+            data: returnsArray.map((obj) => obj.interestReturns),
             backgroundColor: "rgb(24, 72, 128)",
           },
         ],
@@ -77,12 +96,8 @@ function renderProgression() {
       options: {
         responsive: true,
         scales: {
-          x: {
-            stacked: true,
-          },
-          y: {
-            stacked: true,
-          },
+          x: { stacked: true },
+          y: { stacked: true },
         },
       },
     });
@@ -100,6 +115,7 @@ function clearForm() {
   form["evaluation-period"].value = "";
   form["tax-rate"].value = "";
   form["return-rate"].value = "";
+  resetCharts();
 }
 
 calculateButton.addEventListener("click", renderProgression);
