@@ -1,0 +1,24 @@
+{
+  "name": "calculadora-de-investimentos",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lzeduardo-dev/Calculadora-de-investimentos.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lzeduardo-dev/Calculadora-de-investimentos/issues"
+  },
+  "homepage": "https://github.com/lzeduardo-dev/Calculadora-de-investimentos#readme",
+  "description": "",
+  "dependencies": {
+    "chart.js": "^4.4.9",
+    "chartjs": "^0.3.24"
+  }
+}

@@ -2,7 +2,7 @@
 function convertToMonthlyReturnRate(annualFactor) {
   // garante que é número e positivo
   if (typeof annualFactor !== "number" || annualFactor <= 0) {
-    throw new Error("annualFactor deve ser um número positivo");
+    throw new Error(" deve ser um número positivo");
   }
   return annualFactor ** (1 / 12);
 }
@@ -17,16 +17,16 @@ export function generateReturnsArray(
 ) {
   // checagem básica
   if (typeof startingAmount !== "number" || startingAmount <= 0) {
-    throw new Error("startingAmount deve ser um número positivo");
+    throw new Error("Investimento inicial deve ser um valor numérico maior que zero!");
   }
   if (typeof timeHorizon !== "number" || timeHorizon <= 0) {
-    throw new Error("timeHorizon deve ser um número positivo");
+    throw new Error("Prazo deve ser um valor numérico maior que zero!");
   }
-  if (typeof returnRate !== "number") {
-    throw new Error("returnRate deve ser um número");
+  if (typeof returnRate !== "number" || returnRate <= 0) {
+    throw new Error("Rendimento deve ser um valor numérico maior que zero!");
   }
-  if (typeof monthlyContribution !== 'number') {
-    throw new Error("Additiona lContribution deve ser um número");
+  if (typeof monthlyContribution !== 'number' || monthlyContribution <= 0) {
+    throw new Error("Aportes adicionais deve ser um valor numérico maior que zero!");
   }
 
 
