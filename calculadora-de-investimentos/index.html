@@ -162,7 +162,8 @@
 			>
 				&#8250;
 			</button>
-			  <section id="charts-container" class="h-full basis-full shrink-0">
+			<div id="carrossel" class="h-full w-full flex overflow-x-scroll">
+				<section id="charts-container" class="h-full basis-full shrink-0">
 					<div class="h-[36dvh] flex flex-col items-center pb-10">
 						<p class="font-bold text-lg">Resultado Final</p>
 						<canvas id="final-money-distribution"></canvas>
@@ -187,6 +188,7 @@
 						<tbody></tbody>
 					</table>
 				</section>
+			</div>
 		</main>
 		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 		<script type="module" src="/src/main.js"></script>
