@@ -1,5 +1,6 @@
 import { generateReturnsArray } from "./investmentGoals";
 import { Chart } from "chart.js/auto";
+import { createTable } from "./table";
 
 const calculateButton = document.getElementById("calculate-results");
 const form = document.getElementById("form");
@@ -9,6 +10,34 @@ const progressionChart = document.getElementById("progression");
 
 let doughnutChartReference = {};
 let progressionChartReference = {};
+
+const columnsArray = [
+  { columnLabel: "Mês", accessor: "month" },
+  {
+    columnLabel: "Total Investido",
+    accessor: "investedAmount",
+    format: (numberInfo) => formatCurrency(numberInfo),
+  },
+  {
+    columnLabel: "Rendimento Mensal",
+    accessor: "interestReturns",
+    format: (numberInfo) => formatCurrency(numberInfo),
+  },
+  {
+    columnLabel: "Rendimento Total",
+    accessor: "totalInterestReturns",
+    format: (numberInfo) => formatCurrency(numberInfo),
+  },
+  {
+    columnLabel: "Quantia Total",
+    accessor: "totalAmount",
+    format: (numberInfo) => formatCurrency(numberInfo),
+  },
+];
+
+function formatCurrency(value) {
+  return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+}
 
 function isObjectEmpty(obj) {
   return Object.keys(obj).length === 0;
@@ -68,7 +97,7 @@ function renderProgression() {
             backgroundColor: [
               "rgb(24, 72, 128)",
               "rgb(228, 116, 46)",
-              "rgb(53, 163, 31)",
+              "rgb(221, 207, 12)",
             ],
           },
         ],
@@ -102,6 +131,8 @@ function renderProgression() {
       },
     });
 
+    createTable(columnsArray, returnsArray, "results-table");
+
     console.log(returnsArray);
   } catch (error) {
     alert(error.message);
@@ -118,5 +149,19 @@ function clearForm() {
   resetCharts();
 }
 
-calculateButton.addEventListener("click", renderProgression);
-clearFormButton.addEventListener("click", clearForm);
+const mainEl = document.querySelector("main");
+const carouselEl = document.getElementById("carousel");
+const nextButton = document.getElementById('slide-arrow-next');
+const previousButton = document.getElementById('slide-arrow-previous');
+
+nextButton.addEventListener("click", () => {
+  carouselEl.scrollLeft += mainEl.clientWidth;
+});
+
+previousButton.addEventListener("click", () => {
+  carouselEl.scrollLeft -= mainEl.clientWidth;
+})
+
+calculateButton.addEventListener('click', renderProgression);
+clearFormButton.addEventListener('click', clearForm);
+ 
