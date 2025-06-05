@@ -164,3 +164,4 @@ previousButton.addEventListener("click", () => {
 
 calculateButton.addEventListener('click', renderProgression);
 clearFormButton.addEventListener('click', clearForm);
+ 
